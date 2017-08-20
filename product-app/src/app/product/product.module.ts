@@ -5,25 +5,27 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { ProductService } from "./services/product.service";
+import { ProductService, ProductWebService } from "./services/product.service";
 
 import {routes} from "./product.routing";
 import {RouterModule} from "@angular/router";
 
-
 @NgModule({
   imports: [
     CommonModule,
-    //added router for proudct
     RouterModule.forChild(routes)
   ],
   declarations: [ProductHomeComponent, 
-  ProductListComponent, 
-  ProductEditComponent, 
-  ProductSearchComponent,
-  FilterPipe],
-  providers:[
-    ProductService
+                 ProductListComponent, 
+                 ProductEditComponent, 
+                 ProductSearchComponent, 
+                 FilterPipe],
+
+  providers: [
+    {
+      provide: ProductService, //interface
+      useClass: ProductWebService //implementation
+    }
   ]
 })
 export class ProductModule { }
