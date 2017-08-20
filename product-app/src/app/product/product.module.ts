@@ -10,9 +10,11 @@ import { ProductService } from "./services/product.service";
 import {routes} from "./product.routing";
 import {RouterModule} from "@angular/router";
 
+
 @NgModule({
   imports: [
     CommonModule,
+    //added router for proudct
     RouterModule.forChild(routes)
   ],
   declarations: [ProductHomeComponent, 
