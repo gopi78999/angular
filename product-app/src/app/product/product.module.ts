@@ -10,9 +10,17 @@ import { ProductService, ProductWebService } from "./services/product.service";
 import {routes} from "./product.routing";
 import {RouterModule} from "@angular/router";
 
+import {HttpModule} from "@angular/http";
+
+import {FormsModule,
+       ReactiveFormsModule} from "@angular/forms";
+
 @NgModule({
   imports: [
     CommonModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ProductHomeComponent, 

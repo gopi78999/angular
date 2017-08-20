@@ -18,6 +18,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { routes } from "./app.routing"
 import { ProductModule } from "./product/product.module";
 
+import {environment} from "../environments/environment"
+
+console.log("Environment  ", environment);
+
+//ng serve (environment.ts)
+//ng build --prod (environment.prod.ts)
+
 
 
 @NgModule({

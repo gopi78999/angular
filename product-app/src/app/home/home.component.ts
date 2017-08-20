@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LikeService,Message } from "../shared/like.service";
+import { LikeService, Message } from "../shared/like.service";
+
+import "rxjs/add/operator/filter";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'home',
@@ -7,32 +10,41 @@ import { LikeService,Message } from "../shared/like.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    message: Message;
 
-homeLikes: number = 500;
+  homeLikes: number = 1000;
+  subscription:Subscription;
+  handle:any;
 
-constructor (private likeService:LikeService){
-console.log("Home component created..")
-
-}
-
-  
+  constructor(private likeService:LikeService) {
+     console.log("Home componented created");
+  }
 
   ngOnInit() {
-    //getter
- this.homeLikes = this.likeService.homeLikes;
 
- //subsricbe
-    this.likeService.likeSubject.subscribe((message:Message)=>{
-      console.log("at footer",message);
-      this.message = message;
-    }) 
+      //getter
+      this.homeLikes = this.likeService.homeLikes;
 
-    setInterval( ()=> {
-      //this.homeLikes +=10;
-      this.likeService.homeLikes +=10;
-      console.log(this.likeService.homeLikes)
-    },1000);
+
+      this.subscription = this.likeService.likeSubject
+      .filter ((message: Message) => message.type == 'Home')
+      .subscribe( (message: Message) => {
+        this.homeLikes = message.likes;
+        console.log("home subscribed");
+      })
+
+     this.handle =  setInterval( ()=> {
+          //setter
+          this.likeService.homeLikes += 10;
+       
+          console.log(this.likeService.homeLikes)
+      }, 3000);
+
+  }
+
+  ngOnDestroy(){
+    console.log("Home destroyed");
+clearInterval(this.handle);// stop timer
+this.subscription.unsubscribe();
   }
 
 }

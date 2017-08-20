@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { LikeService } from "../shared/like.service";
+import { LikeService, Message } from "../shared/like.service";
 
 @Component({
   selector: 'contact',
@@ -23,6 +23,12 @@ console.log("Contact component created..")
   ngOnInit() {
     //nativeElement is real dom element
     this.para1.nativeElement.textContent = "From TS";
+
+    this.likeService.likeSubject
+    .subscribe ( (message: Message) => {
+      this.contactLikes = message.likes;
+      console.log("contact subs called");
+    })
   }
 
 }
