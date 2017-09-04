@@ -11,6 +11,10 @@ export const routes:Routes =[
     component:HomeComponent
 },
 {
+        path: "products",
+        loadChildren: './product/product.module#ProductModule'
+},
+{
     path: 'contact', 
     component:ContactComponent
 },

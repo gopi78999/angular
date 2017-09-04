@@ -3,12 +3,14 @@ import { ProductHomeComponent } from "./components/product-home/product-home.com
 import { ProductListComponent } from "./components/product-list/product-list.component";
 import { ProductEditComponent } from "./components/product-edit/product-edit.component";
 import { ProductSearchComponent } from "./components/product-search/product-search.component";
+import { AuthGuard, AdminGuard } from "../auth/auth.guards";
 
 export const routes:Routes = [
     {
-        path: 'products',
+        path: '',
         component: ProductHomeComponent,
-
+        //for authentication
+ canActivate: [AuthGuard],
         children: [
             {
                 path: 'list', //locahost/products/list
@@ -16,11 +18,13 @@ export const routes:Routes = [
             },
             {
                 path: 'create',
-                component: ProductEditComponent
+                component: ProductEditComponent,
+                canActivate:[AdminGuard]
             },
             {
                 path: 'edit/:id',
-                component: ProductEditComponent
+                component: ProductEditComponent,
+                canActivate:[AdminGuard]
             },
             {
                 path: 'search',

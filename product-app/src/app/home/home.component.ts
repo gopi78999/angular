@@ -4,10 +4,14 @@ import { LikeService, Message } from "../shared/like.service";
 import "rxjs/add/operator/filter";
 import { Subscription } from "rxjs/Subscription";
 
+
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers:[
+   // LikeService
+  ]
 })
 export class HomeComponent implements OnInit {
 

@@ -16,12 +16,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { routes } from "./app.routing"
-import { ProductModule } from "./product/product.module";
+//import { ProductModule } from "./product/product.module";
 
 import {environment} from "../environments/environment"
 
 console.log("Environment  ", environment);
 
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from "@angular/common"
+import { AuthModule } from "./auth/auth.module";
+import { ErrorModule } from "./error/error.module";
 //ng serve (environment.ts)
 //ng build --prod (environment.prod.ts)
 
@@ -33,7 +36,9 @@ imports:[
 BrowserModule,
 SharedModule,
 RouterModule.forRoot(routes),
-ProductModule,
+AuthModule,
+ErrorModule
+//ProductModule,
 //AuthModule
 ],
 declarations:[
@@ -52,6 +57,17 @@ declarations:[
 bootstrap:[
     AppComponent,
     //ChatAppComponent //Not recommended : Rule of thumb is only one Componet should keep here
+],
+providers:[
+    {
+        provide:LocationStrategy,
+        useClass:HashLocationStrategy
+    },
+    {
+            provide: "apiEndPoint",
+           // useValue: environment.apiEndPoint
+             useValue: "http://localhost:7070"
+        }
 ]
 
 })
